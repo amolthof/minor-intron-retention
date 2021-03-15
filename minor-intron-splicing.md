@@ -43,4 +43,5 @@ Several BEDfiles are used to isolate reads that support proper splicing of minor
     intersectBed -wb -s -a ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons_intersect3SSExons.bed -b ${BedFileIntrons} > ${outdir}/${sample}_spliced${IntronType}_CAT1.bed
 
     awk -F"\t" '{print $10"::"$7":"$8"-"$9"("$12")"}' ${outdir}/${sample}_spliced${IntronType}_CAT1.bed | sort | uniq -c | awk '{print $2,$1}' > ${outdir}/${sample}_spliced${IntronType}_CAT1_count.tmp
+    awk -F"\t" '{print $4"::"$1":"$2"-"$3"("$6")"}' ${BedFileIntrons} | sort | uniq > ${outdir}/${IntronType}_key.txt
     key-merge ${outdir}/${IntronType}_key.txt ${outdir}/${sample}_spliced${IntronType}_CAT1_count.tmp | awk '{if (NF==2) print "CAT1-"$1,$2; else print "CAT1-"$1,"0"}' | sort | uniq > ${outdir}/${sample}_spliced${IntronType}_CAT1_counted.txt
