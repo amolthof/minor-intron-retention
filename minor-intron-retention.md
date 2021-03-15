@@ -59,7 +59,7 @@ Depending on the size of the BAM file, coverageBed may use a lot of memory. This
 	
 	for a in `seq 1 ${NumIntrons}`; do
 
-	    Intron=`awk '{print $1}' ${outdir}/${IntronType}_key.txt | head -n ${a} | tail -n 1`
+		Intron=`awk '{print $1}' ${outdir}/${IntronType}_key.txt | head -n ${a} | tail -n 1`
 		ReadA1=`awk -v intron=${Intron} '{if ($1==intron) print $2}' ${outdir}/${sample}_intersectBed_Exons_5SSBoundaryFilter_allCount.tmp`
 		ReadA2=`awk -v intron=${Intron} '{if ($1==intron) print $2}' ${outdir}/${sample}_intersectBed_Exons_3SSBoundaryFilter_allCount.tmp`
 		ReadN=`awk -v intron=${Intron} '{if (substr($1,6)==intron) print $2}' ${outdir}/${sample}_spliced${IntronType}_CAT1_counted.txt`
