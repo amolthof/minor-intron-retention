@@ -13,6 +13,10 @@ align.md
 
 This is a bash markdown document for aligning paired-end Illumina sequencing reads against a reference genome using Hisat2.
 
+bamfiles.md
+
+This is a bash markdown document for generating BAM files used to evaluate minor intron retention and splicing. 
+
 minor-intron-splicing.md
 
 This is a bash markdown document for obtaining counts for reads supporting effective minor intron splicing.
