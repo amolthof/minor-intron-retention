@@ -36,7 +36,8 @@ To determine whether reads are spliced (i.e. originate from an exon-exon junctio
     # Create BAM files with uniquely aligned, spliced reads
     awk '{if (substr($1,1,1)=="@" || $6~"N") print $0}' ${aligndir}/${sample}_uniquereads.sam > ${aligndir}/${sample}_uniqueSplicedReads.sam
 	awk '{if (substr($1,1,1)=="@" || $6!~"N1M") print $0}' ${aligndir}/${sample}_uniqueSplicedReads.sam > ${aligndir}/${sample}_uniqueSplicedReads_exclude1M.sam
-	samtools view -bS ${aligndir}/${sample}_uniqueSplicedReads_exclude1M.sam > ${aligndir}/${sample}_uniqueSplicedReads.bam
+	
+    samtools view -bS ${aligndir}/${sample}_uniqueSplicedReads_exclude1M.sam > ${aligndir}/${sample}_uniqueSplicedReads.bam
 
 **Remove intermediate files not used in downstream analyses**
 
