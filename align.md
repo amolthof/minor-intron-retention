@@ -7,7 +7,7 @@ The purpose of this bash script is to align Illumina-generated paired-end sequen
 Dependencies:
 
 Hisat2: https://daehwankimlab.github.io/hisat2/ <br>
-SAMtools: http://samtools.sourceforge.net/
+
 ___
 **Set FASTQ and output directory**
 
