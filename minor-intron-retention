@@ -1,0 +1,8 @@
+## Determining the level of minor intron retention.
+
+The purpose of this bash script is to determine the level of minor intron retention. This is established by quantifying reads aligned to exon-minor intron boundaries. This information is then used in combination with the output of the minor-intron-splicing script to generate mis-splicing indices for each minor intron. 
+Dependencies:
+
+BEDTools: https://bedtools.readthedocs.io/en/latest/<br>
+awk: https://www.gnu.org/software/gawk/gawk.html<br>
+key-merge:
