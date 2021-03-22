@@ -20,15 +20,15 @@ ___
 
 **Provide location of BEDfiles**
 
-Several BEDfiles are used to isolate reads that support proper splicing of minor introns. These were downloaded from the Minor Intron Database [(MIDB)](https://midb.pnb.uconn.edu/) and contain minor intron coordinates corresponding to GRCh38 Ensembl v.84. It is ***essential*** that the genome version used to align the data is the same as the one used to obtain minor intron coordinates.
+Several BEDfiles are used to isolate reads that support proper splicing of minor introns. These were downloaded from the Minor Intron Database [(MIDB)](https://midb.pnb.uconn.edu/) and contain minor intron coordinates corresponding to GRCh38 Ensembl v.95. It is ***essential*** that the genome version used to align the data is the same as the one used to obtain minor intron coordinates.
 
     BEDdir="/path/to/my/BEDfile_directory"
     IntronType="MinorIntrons"
-    BedFileROI=${BEDdir}/
+    BedFileROI=${BEDdir}/hg38Ens95_
     BedFileIntrons=${BEDdir}/
     BedFile5SSExons=${BEDdir}/
     BedFile3SSExons=${BEDdir}/
-    ${BedFileExons}=${BEDdir}/
+    BedFileExons=${BEDdir}/hg38Ens95_${IntronType}_CanonicalIsoform.bed
 
 **Compute intron coverage**
 

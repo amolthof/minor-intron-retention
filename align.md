@@ -9,12 +9,14 @@ Dependencies:
 Hisat2: https://daehwankimlab.github.io/hisat2/ <br>
 
 ___
-**Set FASTQ and output directory**
+**Set FASTQ, FASTA and output directory**
 
     fastqdir="/path/to/my/fastq_directory"
+    fastadir="/path/to/my/fasta_directory"
     workdir="/path/to/my/working_directory"
     aligndir="${workdir}/SAM_Files"
     mkdir -p ${fastqdir}
+    mkdir -p ${fastadir}
     mkdir -p ${aligndir}
 
 **Provide sample information**
@@ -30,11 +32,13 @@ ___
 
 These were generated using GRCh38 Ensembl v.84 genome sequences downloaded from the Ensembl database. However, genome files obtained from other sources can be used as well.
 
-    hisat2-build 
+    nice hisat2-build -p ${threads} ${fastadir}/${organism}*.fa ${fastadir}/${organism}_genome
 
 **Align to the reference genome**
 
-    hisat2-align
+Several of the options used for alignment are not listed in the Hisat2 manual, but originate from the Bowtie2 implementation. It might be necessary to include additional options (e.g. read trimming) or modify current options to optimize the alignment rates. 
+
+    nice hisat2 --end-to-end --no-discordant --no-mixed --sensitive -p ${threads} -x ${fastadir}/${organism}_genome -1 ${fastqdir}/${sample}_R1.fastq -2 ${fastqdir}/${sample}_R2.fastq > ${aligndir}/${sample}.sam
 
 
 
