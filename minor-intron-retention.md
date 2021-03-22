@@ -30,7 +30,7 @@ Several BEDfiles are used to isolate reads that support proper splicing of minor
     BedFileIntrons=${BEDdir}/${organism}.${genome}_${IntronType}_Introns.bed
     BedFile5SSExons=${BEDdir}/${organism}.${genome}_${IntronType}_5SSExons.bed
     BedFile3SSExons=${BEDdir}/${organism}.${genome}_${IntronType}_3SSExons.bed
-    BedFileExons=${BEDdir}/${genome}_${IntronType}_FlankingExons.bed
+    BedFileExons=${BEDdir}/${organism}.${genome}_${IntronType}_FlankingExons.bed
 
 **Compute intron coverage**
 
