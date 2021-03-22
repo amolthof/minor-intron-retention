@@ -30,7 +30,7 @@ ___
 
 **Generate Hisat2 index**
 
-These were generated using GRCh38 Ensembl v.84 genome sequences downloaded from the Ensembl database. However, genome files obtained from other sources can be used as well.
+These were generated using GRCh38 Ensembl v.95 genome sequences downloaded from the Ensembl database. However, genome files obtained from other sources can be used as well.
 
     nice hisat2-build -p ${threads} ${fastadir}/${organism}*.fa ${fastadir}/${organism}_genome
 

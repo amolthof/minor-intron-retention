@@ -5,14 +5,16 @@ The purpose of this bash script is to determine the level of minor intron retent
 Dependencies:
 
 BEDTools: https://bedtools.readthedocs.io/en/latest/<br>
+SAMTools: http://samtools.sourceforge.net/<br>
 awk: https://www.gnu.org/software/gawk/gawk.html<br>
-key-merge:
+key-merge: source code available upon request
 ___
 
 **Provide information about sample, SAM/BAM file location and output directory**
 
     sample="WT"
-    genome="GRCh38"
+    organism="Homo_sapiens"
+    genome="hg38Ens95"
 
     workdir="/path/to/my/working_directory"
     aligndir="${workdir}/SAM_Files"
@@ -24,11 +26,11 @@ Several BEDfiles are used to isolate reads that support proper splicing of minor
 
     BEDdir="/path/to/my/BEDfile_directory"
     IntronType="MinorIntrons"
-    BedFileROI=${BEDdir}/hg38Ens95_
-    BedFileIntrons=${BEDdir}/
-    BedFile5SSExons=${BEDdir}/
-    BedFile3SSExons=${BEDdir}/
-    BedFileExons=${BEDdir}/hg38Ens95_${IntronType}_CanonicalIsoform.bed
+    BedFileROI=${BEDdir}/${organism}.${genome}_${IntronType}_RegionOfInterest.bed
+    BedFileIntrons=${BEDdir}/${organism}.${genome}_${IntronType}_Introns.bed
+    BedFile5SSExons=${BEDdir}/${organism}.${genome}_${IntronType}_5SSExons.bed
+    BedFile3SSExons=${BEDdir}/${organism}.${genome}_${IntronType}_3SSExons.bed
+    BedFileExons=${BEDdir}/${genome}_${IntronType}_FlankingExons.bed
 
 **Compute intron coverage**
 
@@ -36,9 +38,10 @@ Depending on the size of the BAM file, coverageBed may use a lot of memory. This
 
     echo "Computing intron coverage in ${sample}... |" `date`
 	
-    FASTAindex="/path/to/my/fasta_directory"
-    awk -v OFS="\t" '{print $1, $2}' ${FASTAindex} > ${genome}.txt
-    coverageBed -g ${genome}.txt -a ${BedFileIntrons} -b ${aligndir}/${sample}_uniqueUnsplicedReads_sorted.bam -s -split -sorted | awk -F"\t" '{print $4"::"$1":"$2"-"$3"("$6")",$10}' > ${outdir}/${sample}_coverageBed_${IntronType}.bed
+    fastafile="/path/to/my/fasta_file"
+    samtools faidx ${fastafile} -o ${outdir}/${organism}_${genome}.fai
+    awk -v OFS="\t" '{print $1, $2}' ${outdir}/${organism}_${genome}.fai > ${outdir}/${organism}_${genome}.txt
+    coverageBed -g ${outdir}/${organism}_${genome}.txt -a ${BedFileIntrons} -b ${aligndir}/${sample}_uniqueUnsplicedReads_sorted.bam -s -split -sorted | awk -F"\t" '{print $4"::"$1":"$2"-"$3"("$6")",$10}' > ${outdir}/${sample}_coverageBed_${IntronType}.bed
 
 **Isolate and quantify reads aligning to exon-intron boundaries resulting from disrupted minor intron splicing**
 

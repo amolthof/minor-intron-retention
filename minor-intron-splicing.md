@@ -6,12 +6,15 @@ Dependencies:
 
 BEDTools: https://bedtools.readthedocs.io/en/latest/<br>
 awk: https://www.gnu.org/software/gawk/gawk.html<br>
-key-merge:
+key-merge: source code available upon request
 ___
 
 **Provide information about sample, SAM/BAM file location and output directory**
 
     sample="WT"
+    organism="Homo_sapiens"
+    genome="hg38Ens95"
+
     workdir="/path/to/my/working_directory"
     aligndir="${workdir}/SAM_Files"
     outdir="${workdir}/MinorIntronRetention"
@@ -25,10 +28,12 @@ Several BEDfiles are used to isolate reads that support proper splicing of minor
 
     BEDdir="/path/to/my/BEDfile_directory"
     IntronType="MinorIntrons"
-    BedFileROI=${BEDdir}/
-    BedFileIntrons=${BEDdir}/
-    BedFile5SSExons=${BEDdir}/
-    BedFile3SSExons=${BEDdir}/
+    
+    BedFileROI=${BEDdir}/${organism}.${genome}_${IntronType}_RegionOfInterest.bed
+    BedFileIntrons=${BEDdir}/${organism}.${genome}_${IntronType}_Introns.bed
+    BedFile5SSExons=${BEDdir}/${organism}.${genome}_${IntronType}_5SSExons.bed
+    BedFile3SSExons=${BEDdir}/${organism}.${genome}_${IntronType}_3SSExons.bed
+
 
 **Isolate reads aligning to exon-exon junctions resulting from proper minor intron splicing**
 
