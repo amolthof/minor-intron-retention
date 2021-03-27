@@ -26,10 +26,9 @@ Several BEDfiles are used to isolate reads that support proper splicing of minor
 
     BEDdir="/path/to/my/BEDfile_directory"
     IntronType="MinorIntrons"
-    BedFileROI=${BEDdir}/${organism}.${genome}_${IntronType}_RegionOfInterest.bed
     BedFileIntrons=${BEDdir}/${organism}.${genome}_${IntronType}_Introns.bed
-    BedFile5SSExons=${BEDdir}/${organism}.${genome}_${IntronType}_5SSExons.bed
-    BedFile3SSExons=${BEDdir}/${organism}.${genome}_${IntronType}_3SSExons.bed
+    BedFile5SSIntrons=${BEDdir}/${organism}.${genome}_${IntronType}_5SSIntrons.bed
+    BedFile3SSIntrons=${BEDdir}/${organism}.${genome}_${IntronType}_3SSIntrons.bed
     BedFileExons=${BEDdir}/${organism}.${genome}_${IntronType}_FlankingExons.bed
 
 **Compute intron coverage**
@@ -73,3 +72,12 @@ Depending on the size of the BAM file, coverageBed may use a lot of memory. This
 		echo ${Intron} ${sample} ${ReadA1} ${ReadA2} ${ReadN} ${Coverage} >> ${outdir}/${sample}_${IntronType}_counts.tmp
 		echo ${Intron} ${sample} ${MSI} ${Filter} >> ${outdir}/${sample}_${IntronType}_MSI.tmp
 	done
+
+**Combine MSI values of all samples to one master output file**
+
+Only introns that passed the filtering criteria for retention in at least one sample are included for further statistical analyses. 
+
+    key-merge ${outdir}/*_${IntronType}_counts.tmp > ${outdir}/${IntronType}_counts_allSamples.txt
+    key-merge ${outdir}/*_${IntronType}_MSI.tmp > ${outdir}/${IntronType}_MSI_allSamples.txt
+
+    awk '{pass="no"; for (i=4;i<=NF;i+=3) {if ($i=="yes") pass="yes"}; if (pass=="yes") print $0}' ${outdir}/${IntronType}_MSI_allSamples.txt > ${outdir}/${IntronType}_MSI_passInOneSample.txt

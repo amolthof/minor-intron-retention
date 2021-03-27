@@ -42,7 +42,7 @@ Several BEDfiles are used to isolate reads that support proper splicing of minor
     intersectBed -wa -s -abam ${aligndir}/${sample}_uniqueSplicedReads.bam -b ${BedFileROI} > ${outdir}/${sample}_splicedReadsSpanningFlankingExons.bam
     intersectBed -wa -s -split -v -abam ${outdir}/${sample}_splicedReadsSpanningFlankingExons.bam -b ${BedFileIntrons} > ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}.bam
     intersectBed -wa -s -split -abam ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}.bam -b ${BedFile5SSExons} > ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons.bam
-    intersectBed -wa -s -split -abam ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons.bam -b ${BedFile3SSExons} > ${OutputFiles}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons_intersect3SSExons.bam
+    intersectBed -wa -s -split -abam ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons.bam -b ${BedFile3SSExons} > ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons_intersect3SSExons.bam
 
     bedtools bamtobed -i ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons_intersect3SSExons.bam > ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons_intersect3SSExons.bed
     intersectBed -wb -s -a ${outdir}/${sample}_splicedReadsSpanningFlankingExons_spliced${IntronType}_intersect5SSExons_intersect3SSExons.bed -b ${BedFileIntrons} > ${outdir}/${sample}_spliced${IntronType}_CAT1.bed
