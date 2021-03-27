@@ -26,6 +26,6 @@ This is a bash markdown document for obtaining counts for reads supporting effec
 This is a bash markdown document for obtaining mis-splicing indices for 
 minor introns.
 
-scripts
+[scripts](scripts)
 
 This directory contains plain script versions of the markdown documents
